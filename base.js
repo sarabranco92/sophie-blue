@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       tousBtn.addEventListener("click", () => generationProjets(data, null)); // Utilisez une fonction fléchée ici
 
 
-    //  buttons 
+      //  buttons 
       fetch("http://localhost:5678/api/categories")
         .then((resCategories) => {
           return resCategories.json();
@@ -27,13 +27,36 @@ document.addEventListener("DOMContentLoaded", () => {
             const container = document.querySelector('.filters'); // Vous avez manqué un point ici
             let btn = document.createElement("button");
             btn.classList.add("btn");
-            
             btn.textContent = category.name;
             btn.addEventListener("click", () => generationProjets(data, category.id)); // Utilisez une fonction fléchée ici
             container.appendChild(btn);
+
+
+            const buttons = document.querySelectorAll('.btn, .tousBtn');
+
+            let selectedButton = null; // Variable pour stocker le bouton sélectionné
+
+
+            buttons.forEach((button) => {
+              button.addEventListener('click', () => {   // Ajoutez click à chaque bouton
+
+                if (selectedButton !== null) {
+                  selectedButton.classList.remove('active'); // Désélectionnez le bouton précédemment sélectionné
+                }
+
+
+                button.classList.add('active');// Sélectionnez le bouton actuel
+
+
+                selectedButton = button; // Mettez à jour le bouton sélectionné
+              });
+
+            });
+
           });
         });
     });
+
 
   // Fonction pour générer les projets en fonction du filtre
   function generationProjets(data, id) {
@@ -74,3 +97,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
+
+
+
+
