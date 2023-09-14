@@ -52,6 +52,7 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color: #FFFEF8;
 }
 header {
 	display: flex;
@@ -98,6 +99,57 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
+/* LOGIN*/
+
+.login {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 80vh;
+  }
+  
+  .login a {
+	text-decoration:#1D6154;
+	margin-bottom: 100px;
+  }
+
+  .login__form {
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+	width: 35%;
+  }
+  
+  .login__form input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  }
+  
+  .login__form label {
+	margin: 3em 0 1em 0;
+  }
+  
+  .login__form textarea {
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  }
+  
+.login input[type="submit"] {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 180px;
+	height: 36px;
+	text-align: center;
+	border-radius: 60px ;
+}
+
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -169,7 +221,7 @@ li:hover {
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -199,20 +251,25 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+#contact input[type="submit"] {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
 	margin : 2em auto ;
 	width: 180px;
+	height: 36px;
 	text-align: center;
 	border-radius: 60px ;
 }
 
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	box-sizing: border-box;
+	background-color: white;
+	height: 60px;
+	margin-right:60px;
 }
 
