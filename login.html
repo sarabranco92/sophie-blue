@@ -12,6 +12,48 @@
 	<script src="./login.js"></script> 
 </head>
 <body>
-    
+	<header>
+    <a href="index.html">
+		<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+	</a>
+	<nav>
+		<ul>
+			<li>projets</li>
+			<li>contact</li>
+			<li><a href="./login.html">login</a></li>
+			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+		</ul>
+	</nav>
+</header>
+
+<main>
+	<section class="login">
+        <h2>Log In</h2>
+		<div class="alredyLogged__error">
+		</div>
+        <form action="" method="" class="login__form" onsubmit="return false">
+            <label for="email">E-mail</label>
+            <input type="email" name="email" id="email" required>
+            <div class="loginEmail__error">
+            </div>
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password" required>
+            <div class="loginMdp__error">
+            </div>
+            <input type="submit" value="Se connecter" id="submit">
+        </form>
+        <a href="">Mot de passe oublié</a>
+    </section>
+</main>
+
+
+
+<footer>
+	<nav>
+		<ul>
+			<li>Mentions Légales</li>
+		</ul>
+	</nav>
+</footer>
 </body>
 </html>
