@@ -263,6 +263,13 @@ li:hover {
 	border-radius: 60px ;
 }
 
+footer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	background-color: white;
+  }
+  
 
 footer nav ul {
 	display: flex;
@@ -270,6 +277,7 @@ footer nav ul {
 	box-sizing: border-box;
 	background-color: white;
 	height: 60px;
-	margin-right:60px;
+	margin-right: 60px;
+	
 }
 
