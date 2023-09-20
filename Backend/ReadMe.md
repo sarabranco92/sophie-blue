@@ -15,7 +15,7 @@ email: sophie.bluel@test.tld
 
 password: S0phie 
 ```
-Lien pour voir lahttp://localhost:5678/api-docs/
+Lien pour voir la http://localhost:5678/api-docs/
 [documentation Swagger]()
 
 Pour lire la documentation, utiliser Chrome ou Firefox
