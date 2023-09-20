@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         figure.appendChild(figcaption);
         galleryContainer.appendChild(figure);
       });
+      
     } else {
       // Affichez les projets filtrés
       const filteredData = data.filter((work) => work.categoryId === id);

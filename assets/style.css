@@ -149,6 +149,11 @@ li:hover {
 	border-radius: 60px ;
 }
 
+#error-message{
+	color: red;
+	
+}
+
 
 #introduction {
 	display: flex;
@@ -204,7 +209,6 @@ li:hover {
 	color: white;
 	background-color: #1D6154;
 }
-
 
 
 .gallery {
