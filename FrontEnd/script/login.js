@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
     const elements = {
         password: document.querySelector("#password"),
         email: document.querySelector("#email"),
@@ -17,8 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function loginUser() {
-        const email = elements.email.value.trim(); // Trim whitespace from email
-        const password = elements.password.value.trim(); // Trim whitespace from password
+        const email = elements.email.value.trim();
+        const password = elements.password.value.trim();
 
         if (!email || !password) {
             displayErrorMessage("Veuillez remplir tous les champs.");
@@ -61,5 +60,4 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         loginUser();
     });
-
 });
