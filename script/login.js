@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM content loaded");
     const elements = {
         password: document.querySelector("#password"),
         email: document.querySelector("#email"),
@@ -10,9 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function displayErrorMessage(message) {
         elements.errorMessage.textContent = message;
-        setTimeout(() => {
-            elements.errorMessage.textContent = "";
-        }, 3000);
     }
 
     function loginUser() {
@@ -36,24 +34,34 @@ document.addEventListener("DOMContentLoaded", () => {
             }),
         })
         .then((response) => {
-            if (!response.ok) {
-                throw new Error("Échec de la connexion");
+            if (response.status === 404) {
+                displayErrorMessage("Utilisateur non trouvé.");
+            } else if (response.status === 400) {
+                displayErrorMessage("Mot de passe incorrect.");
+            } else if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("Une erreur s'est produite lors de la connexion.");
             }
-            return response.json();
         })
         .then((data) => {
             if (data.token) {
                 sessionStorage.setItem("Token", data.token);
                 sessionStorage.setItem("isConnected", JSON.stringify(true));
                 window.location.replace("index.html");
-            } else {
-                displayErrorMessage("Erreur dans l'identifiant ou le mot de passe.");
             }
+
+            elements.email.value = "";
+            elements.password.value = "";
+
         })
         .catch((error) => {
             console.error("Error:", error);
             displayErrorMessage("Une erreur s'est produite lors de la connexion.");
+            elements.email.value = "";
+            elements.password.value = "";
         });
+    
     }
 
     elements.submit.addEventListener("click", (event) => {
@@ -61,3 +69,4 @@ document.addEventListener("DOMContentLoaded", () => {
         loginUser();
     });
 });
+

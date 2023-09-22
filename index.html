@@ -13,21 +13,19 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="./script/base.js"></script>
-	<script src="./script/login.js"></script>
-	<script src="./script/modal.js"></script>
 </head>
 
-<!---
-<aside class="admin__rod admin__modifer" aria-hidden="true" style="display: none;">  inclure du contenu connexe ou supplémentaire par rapport au contenu principal de la page
+
+<!-- MODULE ADMIN -->
+<aside class="admin__rod admin__modifer">
 	<div class="admin__modifer">
 		<i class="fa-solid fa-pen-to-square"></i>
 		<p>Mode édition</p>
 	</div>
-	<a href="./index.html">
-		<button>Publier les changements</button>
-	</a>
 </aside>
--->
+
+
+
 
 <body>
 	<header>
@@ -60,6 +58,11 @@
 		</section>
 		<section id="portfolio">
 			<h2>Mes Projets</h2>
+
+			<div class="admin__modifer">
+				<i class="fa-solid fa-pen-to-square"></i>
+				<a href="#modale" class="js-modale">Modifier</a>
+			</div>
 
 			<div class="filters">
 				<button class="tousBtn">Tous</button>
