@@ -17,11 +17,12 @@
 
 
 <!-- MODULE ADMIN -->
-<aside class="admin__rod admin__modifer">
+<aside class="admin__rod admin__modifer" aria-hidden="true" style="display: none;">
 	<div class="admin__modifer">
 		<i class="fa-solid fa-pen-to-square"></i>
 		<p>Mode édition</p>
 	</div>
+	<a href="./login.html"></a>
 </aside>
 
 
@@ -34,8 +35,10 @@
 			<ul>
 				<li>projets</li>
 				<li>contact</li>
-				<li id="login"><a href="./login.html">login</a></li>
-				
+
+				<a href="./login.html">
+					<li class="alredy-logged">login</li>
+				</a>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -57,13 +60,14 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<h2>Mes Projets</h2>
+			<div class="portfolio-title">
+				<h2>Mes Projets</h2>
 
-			<div class="admin__modifer">
-				<i class="fa-solid fa-pen-to-square"></i>
-				<a href="#modale" class="js-modale">Modifier</a>
+				<div class="admin__modifer">
+					<i class="fa-solid fa-pen-to-square"></i>
+					<a href="#modale" class="js-modale">Modifier</a>
+				</div>
 			</div>
-
 			<div class="filters">
 				<button class="tousBtn">Tous</button>
 			</div>
