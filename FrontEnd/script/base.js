@@ -97,27 +97,27 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-});
+
 
 const token = sessionStorage.getItem("token");
-const AlredyLogged = document.querySelector("#login");
+const AlredyLogged = document.querySelector(".alredy-logged");
 
-adminPanel()
+adminPanel();
+
 // Gestion de l'affichage des boutons admin
 function adminPanel() {
     document.querySelectorAll(".admin__modifer").forEach(a => {
+        console.log(a);
         if (token === null) {
+            console.log(token);
             return;
-        }
-        else {
-            a.removeAttribute("aria-hidden")
-            a.removeAttribute("style")
+        } else {
+            a.removeAttribute("aria-hidden");
+            a.removeAttribute("style");
             AlredyLogged.innerHTML = "deconnexion";
         }
     });
+
 }
 
-
-
-
-
+});
