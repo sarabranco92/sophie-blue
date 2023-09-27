@@ -221,10 +221,16 @@ li img {
 }
 
 .admin__modifier {
-	position: fixed;
 	display: flex;
 	column-gap: 5px;
 	color: black;
+}
+
+.admin__modifier a {
+text-decoration: none;
+	color: black;
+	font-family: 'work sans';
+	font-weight: 400;
 }
 
 .admin__rod .admin__modifier {
