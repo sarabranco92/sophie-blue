@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     button.style.display = "none";
                 });
 
-                
+
         } else {
             // Token is not found in sessionStorage
             console.log("Token is not found in sessionStorage.");
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /* ................................MODAL...............................*/
-
+document.addEventListener("DOMContentLoaded", () => {
 
 const openModal = function (e) {
     e.preventDefault();
@@ -161,8 +161,6 @@ const openModal = function (e) {
 document.querySelectorAll(".js-modal").forEach(a => {
     a.addEventListener('click', openModal);
 });
-
-
 
 fetch("http://localhost:5678/api/works")
     .then((response) => {
@@ -193,9 +191,13 @@ function ModalProjets(data, id) {
 
             deleteIcon.addEventListener("click", (event) => {
                 const workId = event.currentTarget.dataset.workId;
+                const token = sessionStorage.getItem("Token");
 
                 fetch(`http://localhost:5678/api/works/${workId}`, {
                     method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 })
                     .then((response) => {
                         if (response.ok) {
@@ -230,4 +232,10 @@ const openModal2 = function (e) {
 
 document.querySelectorAll(".ajouter-projet").forEach(a => {
     a.addEventListener('click', openModal2);
+});
+
+
+
+
+
 });
