@@ -114,8 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 element.removeAttribute("style");
             });
 
-
-
             alreadyLogged.innerHTML = "logout";
 
             alreadyLogged.addEventListener("click", () => {
@@ -126,6 +124,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Redirect the user back to index.html
                 window.location.href = "index.html";
             });
+
+            const filterappear = document.querySelectorAll(".filters");
+                filterappear.forEach((button) => {
+                    button.style.display = "none";
+                });
 
         } else {
             // Token is not found in sessionStorage
