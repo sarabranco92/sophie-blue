@@ -130,6 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     button.style.display = "none";
                 });
 
+                
         } else {
             // Token is not found in sessionStorage
             console.log("Token is not found in sessionStorage.");
