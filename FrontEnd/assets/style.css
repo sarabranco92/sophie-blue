@@ -149,6 +149,12 @@ header {
 	margin: 50px 0
 }
 
+header a {
+	text-decoration: none;
+}
+
+
+
 section {
 	margin: 50px 0
 }
@@ -166,14 +172,19 @@ h1>span {
 	font-family: 'Work Sans';
 	font-size: 10px;
 	letter-spacing: 0.1em;
-	
 }
+
+
 
 h2 {
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
 	color: #1D6154
+}
+
+img{
+	object-fit: cover;
 }
 
 nav ul {
@@ -183,26 +194,29 @@ nav ul {
 
 }
 
+
 nav li a {
-	padding: 0 10px;
+	padding: 0 20px;
 	font-size: 16px;
 	text-decoration: none;
 	color: black;
 	font-family: 'work sans';
+	font-weight: 400;
 
 }
 
-li a:active :hover {
-	font-weight:600 ;
+#black {
+	font-weight: 600;
 }
 
-li img {
-	width: 22px;
-	height: 22px;
+
+.fa-instagram {
 	cursor: pointer;
-
-	
+	font-weight: 400;
+	padding: 0 20px;
 }
+
+
 
 /*..........................................................................................................................................................*/
 
@@ -262,6 +276,7 @@ li img {
 	width: 100%;
 	height: 40px;
 	background-color: black;
+	margin-bottom: 1000px;
 }
 
 .admin__modifier {
@@ -271,7 +286,7 @@ li img {
 }
 
 .admin__modifier a {
-text-decoration: none;
+	text-decoration: none;
 	color: black;
 	font-family: 'work sans';
 	font-weight: 400;
@@ -303,8 +318,9 @@ text-decoration: none;
 }
 
 .login a {
-	text-decoration: #1D6154;
-	margin-bottom: 100px;
+	text-decoration: underline;
+	color: #3d3d3d;
+
 }
 
 .login__form {
@@ -323,6 +339,9 @@ text-decoration: none;
 
 .login__form label {
 	margin: 3em 0 1em 0;
+	font-family: 'work sans';
+	font-size: 15px;
+	color: #3d3d3d;
 }
 
 .login__form textarea {
@@ -360,27 +379,37 @@ text-decoration: none;
 	justify-content: center;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-wrapper {
 	display: flex;
 	flex-direction: column;
 	overflow: auto;
-	max-width: calc(98vh - 20px);
-	max-height: calc(98vh - 20px);
-	width: 675px;
-	padding: 30px;
+	width: 600px;
+	padding: 30px 50px;
 	background-color: white;
 	border-radius: 10px;
 
 }
 
-.modal-close {
+.modal-logo {
+	display: flex;
+	justify-content: space-between;
+	text-decoration: none;
+}
+
+.modal-close{
 	display: flex;
 	justify-content: flex-end;
 	text-decoration: none;
-}
+	color: black;
+padding:10px;
+	}
+
+	.fa-arrow-left{
+		color: black;
+	}
 
 .modal-wrapper h2 {
 	display: flex;
@@ -402,9 +431,10 @@ text-decoration: none;
 	background-color: #1D6154;
 	border: 2px solid #1D6154;
 	margin: 0 auto 30px auto;
-	height: 50px;
-	width: 250px;
+	height: 36px;
+	width: 237px;
 	border-radius: 60px;
+	text-decoration: none;
 }
 
 .admin-projets {
@@ -428,11 +458,10 @@ text-decoration: none;
 	position: relative;
 	display: inline-block;
 	margin: 0 5px;
-	width: 95px;
 }
 
 .admin-projets figure img {
-	width: 95px;
+	width: 76px;
 	height: 120px;
 	margin-bottom: 35px;
 	display: flex;
@@ -459,9 +488,9 @@ figure .fa-trash {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-  }
-  
-  .form-photo {
+}
+
+.form-photo {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -470,21 +499,21 @@ figure .fa-trash {
 	width: 500px;
 	height: 200px;
 	border-radius: 10px;
-  }
-  
-  .form-photo i {
-	color: #306685;
+}
+
+.form-photo i {
+	color: #B9C5CC;
 	font-size: 90px;
 	font-weight: 100;
 	margin: 20px;
 	margin-top: -25px;
-  }
-  
-  .form-photo input {
+}
+
+.form-photo input {
 	display: none;
-  }
-  
-  .form-photo label {
+}
+
+.form-photo label {
 	font-family: "work sans";
 	display: flex;
 	justify-content: center;
@@ -496,49 +525,48 @@ figure .fa-trash {
 	border-radius: 50px;
 	cursor: pointer;
 	margin-top: -10px;
-  }
-  
-  .form-photo::after {
+}
+
+.form-photo::after {
 	content: "jpg, png : 4mo max";
-	position: absolute;
-	top: 315px;
-  }
-  
-  .form-title {
+	margin-top: 10px;
+}
+
+.form-title {
 	display: flex;
 	flex-direction: column;
 	width: 500px;
-  }
-  
-  .form-title input {
+}
+
+.form-title input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-  }
-  
-  .form-title label {
+}
+
+.form-title label {
 	margin: 3em 0 1em 0;
-  }
-  
-  .form-id {
+}
+
+.form-id {
 	display: flex;
 	flex-direction: column;
 	width: 500px;
-  }
-  
-  .form-id select {
+}
+
+.form-id select {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-  }
-  
-  .form-id label {
+}
+
+.form-id label {
 	margin: 3em 0 1em 0;
-  }
-  
-  .modal-form input[type=submit] {
+}
+
+.modal-form input[type=submit] {
 	font-family: "Syne";
 	font-weight: 700;
 	color: white;
@@ -550,7 +578,7 @@ figure .fa-trash {
 	text-align: center;
 	border-radius: 60px;
 	transition: all 0.5s ease;
-  }
+}
 
 
 

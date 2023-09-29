@@ -90,17 +90,14 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
-});
+
 
 /* ................................Admin...............................*/
 
-document.addEventListener("DOMContentLoaded", () => {
 
     function adminPanel() {
         const alreadyLogged = document.querySelector(".already-logged");
         const token = sessionStorage.getItem("Token");
-
-
 
         if (token) {
 
@@ -139,15 +136,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     adminPanel();
-});
-
-
-
-
 
 
 /* ................................MODAL...............................*/
-document.addEventListener("DOMContentLoaded", () => {
+
 
 const openModal = function (e) {
     e.preventDefault();
@@ -220,8 +212,8 @@ function ModalProjets(data, id) {
 /* ................................MODAL 2...............................*/
 
 
-
-const openModal2 = function (e) {
+ /* Modal 2 */
+ const openModal2 = function (e) {
     e.preventDefault();
     const target = document.querySelector(e.target.getAttribute('href'));
 
@@ -234,8 +226,55 @@ document.querySelectorAll(".ajouter-projet").forEach(a => {
     a.addEventListener('click', openModal2);
 });
 
+const btnAjouterProjet = document.querySelector(".add-work");
+btnAjouterProjet.addEventListener("click", ajouterProjet);
 
+// Add a project
+function ajouterProjet(event) {
+    event.preventDefault();
+    
 
+    const title = document.querySelector(".js-title").value;
+    const categoryId = document.querySelector(".js-categoryId").value;
+    const image = document.querySelector(".js-image").files[0]; 
+    if (title === "" || categoryId === "" || image === undefined) {
+        alert("Fill in all fields");
+        return;
+    } else if (categoryId !== "1" && categoryId !== "2" && categoryId !== "3") {
+        alert("Choose a valid category");
+        return;
+    } else {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("category", categoryId);
+        formData.append("image", image);
 
+        const token = sessionStorage.getItem("Token");
 
+        fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+        })
+            .then((response) => {
+                if (response.status === 201) {
+                    alert("Project added successfully");
+                    ModalProjets(dataAdmin, null);
+                    generationProjets(data, null);
+                } else if (response.status === 400) {
+                    alert("Please fill in all fields");
+                } else if (response.status === 500) {
+                    alert("Server error");
+                } else if (response.status === 401) {
+                    alert("You are not authorized to add a project");
+                    window.location.href = "login.html";
+                }
+            })
+            .catch((error) => {
+                console.error("Error adding project:", error);
+            });
+    }
+}
 });
