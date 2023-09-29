@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-/* ................................Admin...............................*/
+    /* ................................Admin...............................*/
 
 
     function adminPanel() {
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("User is logged in.");
 
             const adminElements = document.querySelectorAll(".admin__modifier");
-            
+
             adminElements.forEach((element) => {
                 element.removeAttribute("aria-hidden");
                 element.removeAttribute("style");
@@ -123,9 +123,9 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const filterappear = document.querySelectorAll(".filters");
-                filterappear.forEach((button) => {
-                    button.style.display = "none";
-                });
+            filterappear.forEach((button) => {
+                button.style.display = "none";
+            });
 
 
         } else {
@@ -138,143 +138,184 @@ document.addEventListener("DOMContentLoaded", () => {
     adminPanel();
 
 
-/* ................................MODAL...............................*/
+    /* ................................MODAL...............................*/
 
 
-const openModal = function (e) {
-    e.preventDefault();
-    const target = document.querySelector(e.target.getAttribute('href'));
+    const openModal = function (e) {
+        e.preventDefault();
+        const target = document.querySelector(e.target.getAttribute('href'));
 
-    target.style.display = null;
-    target.removeAttribute('aria-hidden');
-    target.removeAttribute('aria-modal', 'true');
-}
+        target.style.display = null;
+        target.removeAttribute('aria-hidden');
+        target.removeAttribute('aria-modal', 'true');
+    }
 
-document.querySelectorAll(".js-modal").forEach(a => {
-    a.addEventListener('click', openModal);
-});
-
-fetch("http://localhost:5678/api/works")
-    .then((response) => {
-        return response.json();
-    })
-    .then((responseData) => {
-        data = responseData; // Stockez les données dans la variable data
-        ModalProjets(data, null); // Appelez la fonction pour générer les projets initiaux
+    document.querySelectorAll(".js-modal").forEach(a => {
+        a.addEventListener('click', openModal);
     });
 
-function ModalProjets(data, id) {
-    const galleryModal = document.querySelector(".admin-projets");
-    galleryModal.innerHTML = ""; // Effacez la galerie existante
+    fetch("http://localhost:5678/api/works")
+        .then((response) => {
+            return response.json();
+        })
+        .then((responseData) => {
+            data = responseData; // Stockez les données dans la variable data
+            ModalProjets(data, null); // Appelez la fonction pour générer les projets initiaux
+        });
 
-    if (id === null) {
-        // Affichez tous les projets
-        data.forEach((work) => {
-            const figure = document.createElement("figure");
-            const img = document.createElement("img")
-            const deleteIcon = document.createElement("span"); // Icône de suppression (peut-être une icône Font Awesome)
+    function ModalProjets(data, id) {
+        const galleryModal = document.querySelector(".admin-projets");
+        galleryModal.innerHTML = ""; // Effacez la galerie existante
 
-            img.src = work.imageUrl;
-            img.alt = work.title;
+        if (id === null) {
+            // Affichez tous les projets
+            data.forEach((work) => {
+                const figure = document.createElement("figure");
+                const img = document.createElement("img")
+                const deleteIcon = document.createElement("span"); // Icône de suppression (peut-être une icône Font Awesome)
 
-            deleteIcon.classList.add("fa", "fa-trash");
+                img.src = work.imageUrl;
+                img.alt = work.title;
 
-            deleteIcon.dataset.workId = work.id;
+                deleteIcon.classList.add("fa", "fa-trash");
 
-            deleteIcon.addEventListener("click", (event) => {
-                const workId = event.currentTarget.dataset.workId;
-                const token = sessionStorage.getItem("Token");
+                deleteIcon.dataset.workId = work.id;
 
-                fetch(`http://localhost:5678/api/works/${workId}`, {
-                    method: "DELETE",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                })
+                deleteIcon.addEventListener("click", (event) => {
+                    event.preventDefault(); // Prevent the default behavior
+                    const workId = event.currentTarget.dataset.workId;
+                    const token = sessionStorage.getItem("Token");
+                
+                    fetch(`http://localhost:5678/api/works/${workId}`, {
+                        method: "DELETE",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    })
                     .then((response) => {
-                        if (response.ok) {
-
-                            ModalProjets(data, null);
+                        if (response.status === 204) {
+                            // Successfully deleted, so remove the deleted project from the modal
+                            const deletedProject = galleryModal.querySelector(`[data-work-id="${workId}"]`);
+                            if (deletedProject) {
+                                deletedProject.remove();
+                            }
+                            
+                            // Fetch the updated list of projects and refresh the modal
+                            fetch("http://localhost:5678/api/works")
+                                .then((response) => response.json())
+                                .then((responseData) => {
+                                    data = responseData;
+                                    ModalProjets(data, null); // Refresh the modal with the same filter (or null)
+                                })
+                                .catch((error) => {
+                                    console.error("Error fetching updated data:", error);
+                                });
+                        } else if (response.status === 401) {
+                            console.error("Vous n'êtes pas autorisé.");
                         } else {
-
-                            console.error("Image deletion failed.");
+                            console.error("Échec de la suppression de l'image.");
                         }
                     });
+                });
+                
+
+                figure.appendChild(deleteIcon);
+                figure.appendChild(img);
+                galleryModal.appendChild(figure);
             });
-
-            figure.appendChild(deleteIcon);
-            figure.appendChild(img);
-            galleryModal.appendChild(figure);
-        });
+        }
     }
-}
 
-/* ................................MODAL 2...............................*/
+    /* ................................MODAL 2...............................*/
 
 
- /* Modal 2 */
- const openModal2 = function (e) {
-    e.preventDefault();
-    const target = document.querySelector(e.target.getAttribute('href'));
+    /* Modal 2 */
+    const openModal2 = function (e) {
+        e.preventDefault();
+        const target = document.querySelector(e.target.getAttribute('href'));
 
-    target.style.display = null;
-    target.removeAttribute('aria-hidden');
-    target.removeAttribute('aria-modal', 'true');
-}
+        target.style.display = null;
+        target.removeAttribute('aria-hidden');
+        target.removeAttribute('aria-modal', 'true');
+    }
 
-document.querySelectorAll(".ajouter-projet").forEach(a => {
-    a.addEventListener('click', openModal2);
-});
+    document.querySelectorAll(".ajouter-projet").forEach(a => {
+        a.addEventListener('click', openModal2);
+    });
 
-const btnAjouterProjet = document.querySelector(".add-work");
-btnAjouterProjet.addEventListener("click", ajouterProjet);
+    const btnAjouterProjet = document.querySelector(".add-work");
+    btnAjouterProjet.addEventListener("click", ajouterProjet);
 
-// Add a project
-function ajouterProjet(event) {
-    event.preventDefault();
-    
+   
 
-    const title = document.querySelector(".js-title").value;
-    const categoryId = document.querySelector(".js-categoryId").value;
-    const image = document.querySelector(".js-image").files[0]; 
-    if (title === "" || categoryId === "" || image === undefined) {
-        alert("Fill in all fields");
-        return;
-    } else if (categoryId !== "1" && categoryId !== "2" && categoryId !== "3") {
-        alert("Choose a valid category");
-        return;
-    } else {
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("category", categoryId);
-        formData.append("image", image);
+    function ajouterProjet(event) {
+        event.preventDefault();
 
-        const token = sessionStorage.getItem("Token");
+        const title = document.querySelector(".js-title").value;
+        const categoryId = document.querySelector(".js-categoryId").value;
+        const image = document.querySelector(".js-image").files[0];
+        const errorMessage = document.querySelector(".error-message"); // Add this element to your HTML
 
-        fetch("http://localhost:5678/api/works", {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            body: formData,
-        })
-            .then((response) => {
-                if (response.status === 201) {
-                    alert("Project added successfully");
-                    ModalProjets(dataAdmin, null);
-                    generationProjets(data, null);
-                } else if (response.status === 400) {
-                    alert("Please fill in all fields");
-                } else if (response.status === 500) {
-                    alert("Server error");
-                } else if (response.status === 401) {
-                    alert("You are not authorized to add a project");
-                    window.location.href = "login.html";
-                }
+        if (title === "" || categoryId === "" || image === undefined) {
+            errorMessage.textContent = "Veuillez remplir tous les champs";
+            return;
+        } else if (categoryId !== "1" && categoryId !== "2" && categoryId !== "3") {
+            errorMessage.textContent = "Choisissez une catégorie valide";
+            return;
+        } else {
+            // Clear any previous error message
+            errorMessage.textContent = "";
+
+            const formData = new FormData();
+            formData.append("title", title);
+            formData.append("category", categoryId);
+            formData.append("image", image);
+
+            const token = sessionStorage.getItem("Token");
+
+            fetch("http://localhost:5678/api/works", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: formData,
             })
-            .catch((error) => {
-                console.error("Error adding project:", error);
-            });
+                .then((response) => {
+                    if (response.status === 201) {
+                        errorMessage.textContent = "Projet ajouté avec succès";
+                        // Search for the element and call ModalProjets(data, null);
+                        generationProjets(data, null);
+
+                        // Reset the form fields
+                        document.querySelector(".js-title").value = "";
+                        document.querySelector(".js-categoryId").value = "";
+                        document.querySelector(".js-image").value = null; // Clear the file input
+                    } else if (response.status === 400) {
+                        errorMessage.textContent = "Veuillez remplir tous les champs";
+                    } else if (response.status === 500) {
+                        errorMessage.textContent = "Erreur de serveur";
+                    } else if (response.status === 401) {
+                        errorMessage.textContent = "Vous n'êtes pas autorisé à ajouter un projet";
+                        window.location.href = "login.html";
+                    }
+                })
+                .catch((error) => {
+                    console.error("Erreur lors de l'ajout du projet:", error);
+                });
+
+
+                const galleryContainer = document.querySelector("#modalProjects");
+                addedImages.forEach((imageData) => {
+                    const figure = document.createElement("figure");
+                    const img = document.createElement("img");
+        
+                    img.src = imageData.image;
+                    img.alt = imageData.title;
+        
+                    figure.appendChild(img);
+                    galleryContainer.appendChild(figure);
+                });
+
+        }
     }
-}
 });
