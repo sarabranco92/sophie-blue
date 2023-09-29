@@ -185,39 +185,39 @@ document.addEventListener("DOMContentLoaded", () => {
                     event.preventDefault(); // Prevent the default behavior
                     const workId = event.currentTarget.dataset.workId;
                     const token = sessionStorage.getItem("Token");
-                
+
                     fetch(`http://localhost:5678/api/works/${workId}`, {
                         method: "DELETE",
                         headers: {
                             Authorization: `Bearer ${token}`,
                         }
                     })
-                    .then((response) => {
-                        if (response.status === 204) {
-                            // Successfully deleted, so remove the deleted project from the modal
-                            const deletedProject = galleryModal.querySelector(`[data-work-id="${workId}"]`);
-                            if (deletedProject) {
-                                deletedProject.remove();
+                        .then((response) => {
+                            if (response.status === 204) {
+                                // Successfully deleted, so remove the deleted project from the modal
+                                const deletedProject = galleryModal.querySelector(`[data-work-id="${workId}"]`);
+                                if (deletedProject) {
+                                    deletedProject.remove();
+                                }
+
+                                // Fetch the updated list of projects and refresh the modal
+                                fetch("http://localhost:5678/api/works")
+                                    .then((response) => response.json())
+                                    .then((responseData) => {
+                                        data = responseData;
+                                        ModalProjets(data, null); // Refresh the modal with the same filter (or null)
+                                    })
+                                    .catch((error) => {
+                                        console.error("Error fetching updated data:", error);
+                                    });
+                            } else if (response.status === 401) {
+                                console.error("Vous n'êtes pas autorisé.");
+                            } else {
+                                console.error("Échec de la suppression de l'image.");
                             }
-                            
-                            // Fetch the updated list of projects and refresh the modal
-                            fetch("http://localhost:5678/api/works")
-                                .then((response) => response.json())
-                                .then((responseData) => {
-                                    data = responseData;
-                                    ModalProjets(data, null); // Refresh the modal with the same filter (or null)
-                                })
-                                .catch((error) => {
-                                    console.error("Error fetching updated data:", error);
-                                });
-                        } else if (response.status === 401) {
-                            console.error("Vous n'êtes pas autorisé.");
-                        } else {
-                            console.error("Échec de la suppression de l'image.");
-                        }
-                    });
+                        });
                 });
-                
+
 
                 figure.appendChild(deleteIcon);
                 figure.appendChild(img);
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnAjouterProjet = document.querySelector(".add-work");
     btnAjouterProjet.addEventListener("click", ajouterProjet);
 
-   
+
 
     function ajouterProjet(event) {
         event.preventDefault();
@@ -255,7 +255,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const categoryId = document.querySelector(".js-categoryId").value;
         const image = document.querySelector(".js-image").files[0];
         const errorMessage = document.querySelector(".error-message"); // Add this element to your HTML
-
+      
+        
         if (title === "" || categoryId === "" || image === undefined) {
             errorMessage.textContent = "Veuillez remplir tous les champs";
             return;
@@ -302,20 +303,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 .catch((error) => {
                     console.error("Erreur lors de l'ajout du projet:", error);
                 });
-
-
-                const galleryContainer = document.querySelector("#modalProjects");
-                addedImages.forEach((imageData) => {
-                    const figure = document.createElement("figure");
-                    const img = document.createElement("img");
-        
-                    img.src = imageData.image;
-                    img.alt = imageData.title;
-        
-                    figure.appendChild(img);
-                    galleryContainer.appendChild(figure);
-                });
-
         }
     }
 });
