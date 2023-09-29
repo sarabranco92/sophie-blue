@@ -580,6 +580,12 @@ figure .fa-trash {
 	transition: all 0.5s ease;
 }
 
+ .error-message{
+	color: black;
+	font-weight: 600;
+	margin-top: 30px;
+	align-items: left;
+}
 
 
 #introduction {
