@@ -183,7 +183,7 @@ h2 {
 	color: #1D6154
 }
 
-img{
+img {
 	object-fit: cover;
 }
 
@@ -399,17 +399,17 @@ nav li a {
 	text-decoration: none;
 }
 
-.modal-close{
+.modal-close {
 	display: flex;
 	justify-content: flex-end;
 	text-decoration: none;
 	color: black;
-padding:10px;
-	}
+	padding: 10px;
+}
 
-	.fa-arrow-left{
-		color: black;
-	}
+.fa-arrow-left {
+	color: black;
+}
 
 .modal-wrapper h2 {
 	display: flex;
@@ -501,7 +501,10 @@ figure .fa-trash {
 	border-radius: 10px;
 }
 
-
+#imagePreview {
+	width: 500px;
+	height: 200px;
+}
 
 .form-photo i {
 	color: #B9C5CC;
@@ -579,10 +582,9 @@ figure .fa-trash {
 	width: 250px;
 	text-align: center;
 	border-radius: 60px;
-	transition: all 0.5s ease;
 }
 
- .error-message{
+.error-message {
 	color: black;
 	font-weight: 600;
 	margin-top: 30px;

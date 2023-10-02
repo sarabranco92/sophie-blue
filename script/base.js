@@ -243,9 +243,56 @@ document.addEventListener("DOMContentLoaded", () => {
         a.addEventListener('click', openModal2);
     });
 
+
     const btnAjouterProjet = document.querySelector(".add-work");
     btnAjouterProjet.addEventListener("click", ajouterProjet);
 
+    const modalReturnButton = document.querySelector("#modal2 .modal-return"); // Select the "modal-return" button in modal2
+    modalReturnButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        const modal2 = document.querySelector("#modal2");
+        const modal1 = document.querySelector("#modal1");
+
+        // Hide modal2
+        modal2.style.display = "none";
+        modal2.setAttribute("aria-hidden", "true");
+
+        // Show modal1
+        modal1.style.display = null;
+        modal1.removeAttribute("aria-hidden");
+        modal1.removeAttribute("aria-modal", "true");
+    });
+
+
+    // A função será chamada quando o input de arquivo mudar
+    document.querySelector('.js-image').addEventListener('change', function (e) {
+        console.log("Seleção de imagem detectada.");
+        const imagePreview = document.querySelector('#imagePreview');
+        const imageIcon = document.querySelector('#imageIcon');
+        const imageLabel = document.querySelector('#imageLabel');
+
+        const file = e.target.files[0];
+
+        if (file) {
+            // Se um arquivo foi selecionado
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                // Define a imagem de pré-visualização para mostrar a imagem carregada
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                imageIcon.style.display = 'none';
+                imageLabel.textContent = 'Alterar imagem';
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            // Se nenhum arquivo foi selecionado
+            imagePreview.style.display = 'none';
+            imageIcon.style.display = 'block';
+            imageLabel.textContent = '+ Ajouter photo';
+        }
+    });
 
 
     function ajouterProjet(event) {
@@ -255,8 +302,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const categoryId = document.querySelector(".js-categoryId").value;
         const image = document.querySelector(".js-image").files[0];
         const errorMessage = document.querySelector(".error-message"); // Add this element to your HTML
-      
-        
+
+
         if (title === "" || categoryId === "" || image === undefined) {
             errorMessage.textContent = "Veuillez remplir tous les champs";
             return;
@@ -291,6 +338,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         document.querySelector(".js-title").value = "";
                         document.querySelector(".js-categoryId").value = "";
                         document.querySelector(".js-image").value = null; // Clear the file input
+                        document.querySelector("#imagePreview").src = ""; // Clear the image preview
+                        document.querySelector("#imagePreview").style.display = "none"; // Hide the image preview
+                        document.querySelector("#imageIcon").style.display = "block"; // Show the image icon
+                        document.querySelector("#imageLabel").textContent = "+ Ajouter photo"; // Reset the label text
                     } else if (response.status === 400) {
                         errorMessage.textContent = "Veuillez remplir tous les champs";
                     } else if (response.status === 500) {

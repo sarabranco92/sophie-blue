@@ -55,13 +55,15 @@
 		<h2>Ajout photo </h2>
 
 		<form class="modal-form" action="" enctype="multipart/form-data">
-			<!--the enctype attribute is used when you want to upload files-->
 
 			<div class="form-photo">
-				<i class="fa-regular fa-image"></i>
-				<label for="photo">+ Ajouter photo</label>
+				<i id="imageIcon" class="fa-regular fa-image"></i>
+				<label for="photo" id="imageLabel">+ Ajouter photo</label>
 				<input type="file" name="photo" id="photo" class="js-image">
+				<!-- Coloque o <img> dentro do mesmo <div> -->
+				<img id="imagePreview" src="" alt="Aperçu de l'image" style="display: none; max-width: 100%;">
 			</div>
+			
 
 			<div class="form-title">
 				<label for="titre">Titre</label>
