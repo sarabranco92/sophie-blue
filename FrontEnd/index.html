@@ -54,32 +54,33 @@
 
 		<h2>Ajout photo </h2>
 
-		<form class="modal-form" action="" enctype="multipart/form-data">
+		<form class="modal-form" id="modal-form" action="" enctype="multipart/form-data">
 
 			<div class="form-photo">
 				<i id="imageIcon" class="fa-regular fa-image"></i>
 				<label for="photo" id="imageLabel">+ Ajouter photo</label>
-				<input type="file" name="photo" id="photo" class="js-image">
+				<input type="file" name="photo" id="photo" class="js-image"required>
 				<!-- Coloque o <img> dentro do mesmo <div> -->
-				<img id="imagePreview" src="" alt="Aperçu de l'image" style="display: none; max-width: 100%;">
+				<img id="imagePreview" src="" alt=""  class="js-image-preview">
 			</div>
 			
 
 			<div class="form-title">
 				<label for="titre">Titre</label>
-				<input class="js-title" type="text" name="titre" id="titre">
+				<input class="js-title" type="text" name="titre" id="titre" required>
 			</div>
 
 			<div class="form-id">
 				<label for="categorie">Catégorie</label>
-				<select name="categorie" id="categorie" class="js-categoryId">
+				<select name="categorie" id="categorie" class="js-categoryId" required>
 					<option value="1">Objets</option>
 					<option value="2">Appartements</option>
 					<option value="3">Hôtels & restaurants</option>
 				</select>
 			</div>
 			<div class="error-message"></div>
-			<input type="submit" class="add-work" value="Valider">
+			<div class = "finalbar"></div>
+			<input type="submit" id="submit" class="add-work" name="submit" value="Valider">
 		</form>
 	</div>
 </aside>

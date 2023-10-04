@@ -386,7 +386,7 @@ nav li a {
 	display: flex;
 	flex-direction: column;
 	overflow: auto;
-	width: 600px;
+	width: 630px;
 	padding: 30px 50px;
 	background-color: white;
 	border-radius: 10px;
@@ -447,7 +447,7 @@ nav li a {
 .admin-projets::after {
 	display: flex;
 	content: " ";
-	border-top: 1px solid black;
+	border-top: 1px solid #B3B3B3;
 	height: 1px;
 	width: 90%;
 	margin: 40px auto;
@@ -495,20 +495,35 @@ figure .fa-trash {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
 	background-color: #E8F1F7;
 	width: 500px;
-	height: 200px;
-	border-radius: 10px;
+	height: 180px;
+}
+ 
+#imageLabel {
+    display: block;
+    line-height: 36px;
 }
 
-#imagePreview {
-	width: 500px;
-	height: 200px;
+
+.js-image {
+	display: none;
+}
+
+/* Style for the image preview */
+.js-image-preview {
+	top: 0;
+	left: 0;
+	width: 129px;
+	height: 180px;
+	object-fit: cover;
+	display: none;
 }
 
 .form-photo i {
 	color: #B9C5CC;
-	font-size: 90px;
+	font-size: 60px;
 	font-weight: 100;
 	margin: 20px;
 	margin-top: -25px;
@@ -523,8 +538,8 @@ figure .fa-trash {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 200px;
-	height: 40px;
+	width: 173px;
+	height: 36px;
 	background-color: #CBD6DC;
 	color: #306685;
 	border-radius: 50px;
@@ -535,6 +550,11 @@ figure .fa-trash {
 .form-photo::after {
 	content: "jpg, png : 4mo max";
 	margin-top: 10px;
+	font-size: 10px;
+}
+
+.image-selected::after {
+	display: none;
 }
 
 .form-title {
@@ -551,7 +571,7 @@ figure .fa-trash {
 }
 
 .form-title label {
-	margin: 3em 0 1em 0;
+	margin: 48px 0 16px 0;
 }
 
 .form-id {
@@ -568,7 +588,7 @@ figure .fa-trash {
 }
 
 .form-id label {
-	margin: 3em 0 1em 0;
+	margin: 48px 0 16px 0;
 }
 
 .modal-form input[type=submit] {
@@ -576,19 +596,30 @@ figure .fa-trash {
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	border: 2px solid #1D6154;
-	margin: 120px 0 30px 0;
-	height: 50px;
-	width: 250px;
+	border: transparent;
+	margin: 20px 0 30px 0;
+	height: 36px;
+	width: 237px;
 	text-align: center;
 	border-radius: 60px;
 }
+
+
 
 .error-message {
 	color: black;
 	font-weight: 600;
 	margin-top: 30px;
 	align-items: left;
+}
+
+.finalbar {
+	display: flex;
+	content: " ";
+	border-top: 1px solid #B3B3B3;
+	height: 1px;
+	width: 500px;
+	margin: 40px auto;
 }
 
 

@@ -264,36 +264,78 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // A função será chamada quando o input de arquivo mudar
-    document.querySelector('.js-image').addEventListener('change', function (e) {
-        console.log("Seleção de imagem detectada.");
-        const imagePreview = document.querySelector('#imagePreview');
-        const imageIcon = document.querySelector('#imageIcon');
-        const imageLabel = document.querySelector('#imageLabel');
+    const imagePreview = document.querySelector('.js-image-preview');
+    const fileInput = document.querySelector('.js-image');
+    const imageIcon = document.querySelector('#imageIcon');
+    const imageLabel = document.querySelector('#imageLabel');
+    const imageContent = document.querySelector('.form-photo')
 
+    imagePreview.addEventListener('click', function () {
+
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function (e) {
+        console.log("Seleção de imagem detectada.");
         const file = e.target.files[0];
 
         if (file) {
-            // Se um arquivo foi selecionado
+
             const reader = new FileReader();
 
             reader.onload = function (e) {
-                // Define a imagem de pré-visualização para mostrar a imagem carregada
+
                 imagePreview.src = e.target.result;
                 imagePreview.style.display = 'block';
                 imageIcon.style.display = 'none';
-                imageLabel.textContent = 'Alterar imagem';
+                imageLabel.style.display = 'none';
+
+
+                imageContent.classList.add('image-selected');
             };
 
             reader.readAsDataURL(file);
+
+            imageLabel.style.display = 'none';
+
         } else {
-            // Se nenhum arquivo foi selecionado
             imagePreview.style.display = 'none';
             imageIcon.style.display = 'block';
-            imageLabel.textContent = '+ Ajouter photo';
+            imageLabel.style.display = 'block';
+
+            imageContent.classList.remove('image-selected');
         }
     });
 
+
+    const form = document.getElementById("modal-form");
+    const submitButton = document.getElementById("submit");
+
+    // Function to check if all required fields are filled
+    function isFormValid() {
+        const requiredFields = form.querySelectorAll("[required]");
+        for (const field of requiredFields) {
+            if (!field.value) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Function to update button color based on form validity
+    function updateButtonColor() {
+        if (isFormValid()) {
+            submitButton.style.backgroundColor = "#1D6154"; // Change to your desired color
+        } else {
+            submitButton.style.backgroundColor = "#A7A7A7"; // Default color
+        }
+    }
+
+    // Listen for input events on the form fields
+    form.addEventListener("input", updateButtonColor);
+
+    // Initial button color check
+    updateButtonColor();
 
     function ajouterProjet(event) {
         event.preventDefault();
@@ -311,7 +353,6 @@ document.addEventListener("DOMContentLoaded", () => {
             errorMessage.textContent = "Choisissez une catégorie valide";
             return;
         } else {
-            // Clear any previous error message
             errorMessage.textContent = "";
 
             const formData = new FormData();
@@ -331,7 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then((response) => {
                     if (response.status === 201) {
                         errorMessage.textContent = "Projet ajouté avec succès";
-                        // Search for the element and call ModalProjets(data, null);
+
                         generationProjets(data, null);
 
                         // Reset the form fields
@@ -342,6 +383,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         document.querySelector("#imagePreview").style.display = "none"; // Hide the image preview
                         document.querySelector("#imageIcon").style.display = "block"; // Show the image icon
                         document.querySelector("#imageLabel").textContent = "+ Ajouter photo"; // Reset the label text
+                        document.querySelector("#imageLabel").style.display = 'block';
+
+                        updateButtonColor();
+
+
                     } else if (response.status === 400) {
                         errorMessage.textContent = "Veuillez remplir tous les champs";
                     } else if (response.status === 500) {
@@ -351,9 +397,19 @@ document.addEventListener("DOMContentLoaded", () => {
                         window.location.href = "login.html";
                     }
                 })
+
+
                 .catch((error) => {
                     console.error("Erreur lors de l'ajout du projet:", error);
                 });
+
         }
     }
+
+
 });
+
+
+
+
+
