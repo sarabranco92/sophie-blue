@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((response) => {
             if (response.status === 404) {
                 displayErrorMessage("Utilisateur non trouvé.");
+            } else if (response.status === 401) {
+                errorMessage.textContent = "Ulilizateur pas pas autorisé";
             } else if (response.status === 400) {
                 displayErrorMessage("Mot de passe incorrect.");
             } else if (response.ok) {

@@ -94,7 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ................................Admin...............................*/
 
-
     function adminPanel() {
         const alreadyLogged = document.querySelector(".already-logged");
         const token = sessionStorage.getItem("Token");
@@ -114,10 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alreadyLogged.innerHTML = "logout";
 
             alreadyLogged.addEventListener("click", () => {
-
-
                 sessionStorage.removeItem("Token");
-
                 // Redirect the user back to index.html
                 window.location.href = "index.html";
             });
@@ -126,8 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
             filterappear.forEach((button) => {
                 button.style.display = "none";
             });
-
-
         } else {
             // Token is not found in sessionStorage
             console.log("Token is not found in sessionStorage.");
@@ -137,9 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     adminPanel();
 
-
     /* ................................MODAL...............................*/
-
 
     const openModal = function (e) {
         e.preventDefault();
@@ -171,14 +163,13 @@ document.addEventListener("DOMContentLoaded", () => {
             // Affichez tous les projets
             data.forEach((work) => {
                 const figure = document.createElement("figure");
-                const img = document.createElement("img")
-                const deleteIcon = document.createElement("span"); // Icône de suppression (peut-être une icône Font Awesome)
+                const img = document.createElement("img");
+                const deleteIcon = document.createElement("span");
 
                 img.src = work.imageUrl;
                 img.alt = work.title;
 
                 deleteIcon.classList.add("fa", "fa-trash");
-
                 deleteIcon.dataset.workId = work.id;
 
                 deleteIcon.addEventListener("click", (event) => {
@@ -190,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         method: "DELETE",
                         headers: {
                             Authorization: `Bearer ${token}`,
-                        }
+                        },
                     })
                         .then((response) => {
                             if (response.status === 204) {
@@ -218,7 +209,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         });
                 });
 
-
                 figure.appendChild(deleteIcon);
                 figure.appendChild(img);
                 galleryModal.appendChild(figure);
@@ -228,8 +218,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ................................MODAL 2...............................*/
 
-
-    /* Modal 2 */
     const openModal2 = function (e) {
         e.preventDefault();
         const target = document.querySelector(e.target.getAttribute('href'));
@@ -237,122 +225,117 @@ document.addEventListener("DOMContentLoaded", () => {
         target.style.display = null;
         target.removeAttribute('aria-hidden');
         target.removeAttribute('aria-modal', 'true');
-    }
+    };
 
     document.querySelectorAll(".ajouter-projet").forEach(a => {
         a.addEventListener('click', openModal2);
     });
 
-
     const btnAjouterProjet = document.querySelector(".add-work");
     btnAjouterProjet.addEventListener("click", ajouterProjet);
 
-    const modalReturnButton = document.querySelector("#modal2 .modal-return"); // Select the "modal-return" button in modal2
-    modalReturnButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        const modal2 = document.querySelector("#modal2");
-        const modal1 = document.querySelector("#modal1");
-
-        // Hide modal2
-        modal2.style.display = "none";
-        modal2.setAttribute("aria-hidden", "true");
-
-        // Show modal1
-        modal1.style.display = null;
-        modal1.removeAttribute("aria-hidden");
-        modal1.removeAttribute("aria-modal", "true");
+    // Add an event listener to the "ajouter photo" button to clear the success message
+    document.getElementById("imageLabel").addEventListener("click", () => {
+        document.querySelector(".error-message").textContent = "";
     });
 
+        const modalReturnButton = document.querySelector("#modal2 .modal-return");
+        modalReturnButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            const modal2 = document.querySelector("#modal2");
+            const modal1 = document.querySelector("#modal1");
 
-    const imagePreview = document.querySelector('.js-image-preview');
-    const fileInput = document.querySelector('.js-image');
-    const imageIcon = document.querySelector('#imageIcon');
-    const imageLabel = document.querySelector('#imageLabel');
-    const imageContent = document.querySelector('.form-photo')
+            // Hide modal2
+            modal2.style.display = "none";
+            modal2.setAttribute("aria-hidden", "true");
 
-    imagePreview.addEventListener('click', function () {
+            // Show modal1
+            modal1.style.display = null;
+            modal1.removeAttribute("aria-hidden");
+            modal1.removeAttribute("aria-modal", "true");
 
-        fileInput.click();
-    });
+            // Refresh modal1
+            fetch("http://localhost:5678/api/works")
+                .then((response) => response.json())
+                .then((responseData) => {
+                    data = responseData;
+                    ModalProjets(data, null);
+                })
+                .catch((error) => {
+                    console.error("Error fetching data:", error);
+                });
+        });
 
-    fileInput.addEventListener('change', function (e) {
-        console.log("Seleção de imagem detectada.");
-        const file = e.target.files[0];
+        const imagePreview = document.querySelector('.js-image-preview');
+        const fileInput = document.querySelector('.js-image');
+        const imageIcon = document.querySelector('#imageIcon');
+        const imageLabel = document.querySelector('#imageLabel');
+        const imageContent = document.querySelector('.form-photo');
 
-        if (file) {
+        imagePreview.addEventListener('click', () => fileInput.click());
 
-            const reader = new FileReader();
+        fileInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
 
-            reader.onload = function (e) {
+            if (file) {
+                const reader = new FileReader();
 
-                imagePreview.src = e.target.result;
-                imagePreview.style.display = 'block';
-                imageIcon.style.display = 'none';
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    imageIcon.style.display = 'none';
+                    imageLabel.style.display = 'none';
+                    imageContent.classList.add('image-selected');
+                };
+
+                reader.readAsDataURL(file);
                 imageLabel.style.display = 'none';
-
-
-                imageContent.classList.add('image-selected');
-            };
-
-            reader.readAsDataURL(file);
-
-            imageLabel.style.display = 'none';
-
-        } else {
-            imagePreview.style.display = 'none';
-            imageIcon.style.display = 'block';
-            imageLabel.style.display = 'block';
-
-            imageContent.classList.remove('image-selected');
-        }
-    });
-
-
-    const form = document.getElementById("modal-form");
-    const submitButton = document.getElementById("submit");
-
-    // Function to check if all required fields are filled
-    function isFormValid() {
-        const requiredFields = form.querySelectorAll("[required]");
-        for (const field of requiredFields) {
-            if (!field.value) {
-                return false;
+            } else {
+                imagePreview.style.display = 'none';
+                imageIcon.style.display = 'block';
+                imageLabel.style.display = 'block';
+                imageContent.classList.remove('image-selected');
             }
+        });
+
+        const form = document.getElementById("modal-form");
+        const submitButton = document.getElementById("submit");
+
+        // Function to check if all required fields are filled
+        function isFormValid() {
+            const requiredFields = form.querySelectorAll("[required]");
+            return [...requiredFields].every(field => field.value.trim() !== "");
         }
-        return true;
-    }
 
-    // Function to update button color based on form validity
-    function updateButtonColor() {
-        if (isFormValid()) {
-            submitButton.style.backgroundColor = "#1D6154"; // Change to your desired color
-        } else {
-            submitButton.style.backgroundColor = "#A7A7A7"; // Default color
+        // Function to update button color based on form validity
+        function updateButtonColor() {
+            submitButton.style.backgroundColor = isFormValid() ? "#1D6154" : "#A7A7A7";
         }
-    }
 
-    // Listen for input events on the form fields
-    form.addEventListener("input", updateButtonColor);
+        // Listen for input events on the form fields
+        form.addEventListener("input", updateButtonColor);
 
-    // Initial button color check
-    updateButtonColor();
+        // Initial button color check
+        updateButtonColor();
 
-    function ajouterProjet(event) {
-        event.preventDefault();
+        function ajouterProjet(event) {
+            event.preventDefault();
 
-        const title = document.querySelector(".js-title").value;
-        const categoryId = document.querySelector(".js-categoryId").value;
-        const image = document.querySelector(".js-image").files[0];
-        const errorMessage = document.querySelector(".error-message"); // Add this element to your HTML
+            const title = document.querySelector(".js-title").value;
+            const categoryId = document.querySelector(".js-categoryId").value;
+            const image = document.querySelector(".js-image").files[0];
+            const errorMessage = document.querySelector(".error-message");
 
+            if (!title || !categoryId || !image) {
+                errorMessage.textContent = "Veuillez remplir tous les champs";
+                return;
+            }
 
-        if (title === "" || categoryId === "" || image === undefined) {
-            errorMessage.textContent = "Veuillez remplir tous les champs";
-            return;
-        } else if (categoryId !== "1" && categoryId !== "2" && categoryId !== "3") {
-            errorMessage.textContent = "Choisissez une catégorie valide";
-            return;
-        } else {
+            if (categoryId !== "1" && categoryId !== "2" && categoryId !== "3") {
+                errorMessage.textContent = "Choisissez une catégorie valide";
+                return;
+            }
+
             errorMessage.textContent = "";
 
             const formData = new FormData();
@@ -373,21 +356,30 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (response.status === 201) {
                         errorMessage.textContent = "Projet ajouté avec succès";
 
-                        generationProjets(data, null);
+                        // Refresh modal1 with the new image
+                        fetch("http://localhost:5678/api/works")
+                            .then((response) => response.json())
+                            .then((responseData) => {
+                                data = responseData;
+                                ModalProjets(data, null);
+                            })
+                            .catch((error) => {
+                                console.error("Error fetching data:", error);
+                            });
 
                         // Reset the form fields
                         document.querySelector(".js-title").value = "";
                         document.querySelector(".js-categoryId").value = "";
-                        document.querySelector(".js-image").value = null; // Clear the file input
-                        document.querySelector("#imagePreview").src = ""; // Clear the image preview
-                        document.querySelector("#imagePreview").style.display = "none"; // Hide the image preview
-                        document.querySelector("#imageIcon").style.display = "block"; // Show the image icon
-                        document.querySelector("#imageLabel").textContent = "+ Ajouter photo"; // Reset the label text
+                        document.querySelector(".js-image").value = null;
+                        document.querySelector("#imagePreview").src = "";
+                        document.querySelector("#imagePreview").style.display = "none";
+                        document.querySelector("#imageIcon").style.display = "block";
+                        document.querySelector("#imageLabel").textContent = "+ Ajouter photo";
                         document.querySelector("#imageLabel").style.display = 'block';
 
+
+
                         updateButtonColor();
-
-
                     } else if (response.status === 400) {
                         errorMessage.textContent = "Veuillez remplir tous les champs";
                     } else if (response.status === 500) {
@@ -397,19 +389,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         window.location.href = "login.html";
                     }
                 })
-
-
                 .catch((error) => {
                     console.error("Erreur lors de l'ajout du projet:", error);
                 });
-
         }
-    }
-
-
-});
-
-
-
-
-
+    });

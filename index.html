@@ -15,19 +15,18 @@
 	<script src="./script/base.js"></script>
 </head>
 
-
+<body>
 <!-- MODULE ADMIN -->
 <aside class="admin__rod admin__modifier" aria-hidden="true" style="display: none;">
 	<div class="admin__modifier">
 		<i class="fa-solid fa-pen-to-square"></i>
 		<p>Mode édition</p>
 	</div>
-	<a href="./login.html"></a>
 </aside>
 
 
 <!-- MODALE -->
-<aside id="modal1" class="modal" aria-hidden="true" role="dialog" style="display: none;">
+<aside id="modal1" class="modal" aria-hidden="true" style="display: none;">
 	<div class="modal-wrapper modal-stop">
 		<a href="" class="modal-close">
 			<i class="fa-solid fa-xmark fa-xl"></i>
@@ -41,7 +40,7 @@
 </aside>
 
 
-<aside id="modal2" class="modal" aria-hidden="true" role="dialog" style="display: none;">
+<aside id="modal2" class="modal" aria-hidden="true" style="display: none;">
 	<div class="modal-wrapper modal-stop">
 		<div class="modal-logo">
 			<a href="" class="modal-return">
@@ -59,9 +58,9 @@
 			<div class="form-photo">
 				<i id="imageIcon" class="fa-regular fa-image"></i>
 				<label for="photo" id="imageLabel">+ Ajouter photo</label>
-				<input type="file" name="photo" id="photo" class="js-image"required>
+				<input type="file" name="photo" id="photo" class="js-image" required>
 				<!-- Coloque o <img> dentro do mesmo <div> -->
-				<img id="imagePreview" src="" alt=""  class="js-image-preview">
+				<img id="imagePreview" src="" alt ="" class="js-image-preview">
 			</div>
 			
 
@@ -85,13 +84,13 @@
 	</div>
 </aside>
 
-<body>
+
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 		<nav>
 			<ul>
-				<li><a href="#portfolio">projets</li></a>
-				<li><a href="#contact">contact</li></a>
+				<li><a href="#portfolio">projets</a></li>
+				<li><a href="#contact">contact</a></li>
 				<li><a href="./login.html" class="already-logged">login</a></li>
 				<li><i class="fa-brands fa-instagram fa-xl"></i></li>
 			</ul>
@@ -104,6 +103,7 @@
 			</figure>
 			<article>
 				<h2>Designer d'espace</h2>
+
 				<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison
 					finale du chantier.</p>
 				<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les

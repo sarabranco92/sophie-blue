@@ -1,8 +1,10 @@
+/* Réinitialisation CSS */
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
-   License: none (public domain)
+   Licence : aucune (domaine public)
 */
 
+/* Réinitialisation des éléments */
 html,
 body,
 div,
@@ -92,30 +94,13 @@ video {
 	vertical-align: baseline;
 }
 
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-	display: block;
-}
-
-body {
-	line-height: 1;
-}
-
+/* Réinitialisation des styles de liste */
 ol,
 ul {
 	list-style: none;
 }
 
+/* Réinitialisation des citations */
 blockquote,
 q {
 	quotes: none;
@@ -129,86 +114,85 @@ q:after {
 	content: none;
 }
 
+/* Réinitialisation des styles de tableau */
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
 
-/** end reset css**/
+/* Fin de la réinitialisation CSS */
+
+/* Styles généraux */
 body {
 	max-width: 1140px;
 	margin: auto;
-	font-family: 'Work Sans';
+	font-family: 'Work Sans', sans-serif;
 	font-size: 14px;
 	background-color: #FFFEF8;
+	line-height: 1;
 }
 
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
 }
 
 header a {
 	text-decoration: none;
 }
 
-
-
 section {
-	margin: 50px 0
+	margin: 50px 0;
 }
 
+/* Styles des en-têtes */
 h1 {
 	display: flex;
 	flex-direction: column;
-	font-family: 'Syne';
+	font-family: 'Syne', sans-serif;
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
 }
 
 h1>span {
-	font-family: 'Work Sans';
+	font-family: 'Work Sans', sans-serif;
 	font-size: 10px;
 	letter-spacing: 0.1em;
 }
 
-
-
 h2 {
-	font-family: 'Syne';
+	font-family: 'Syne', sans-serif;
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: #1D6154;
 }
 
+/* Styles d'image */
 img {
 	object-fit: cover;
 }
 
+/* Styles de navigation */
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
-
 
 nav li a {
 	padding: 0 20px;
 	font-size: 16px;
 	text-decoration: none;
 	color: black;
-	font-family: 'work sans';
+	font-family: 'Work Sans', sans-serif;
 	font-weight: 400;
-
 }
 
 #black {
 	font-weight: 600;
 }
-
 
 .fa-instagram {
 	cursor: pointer;
@@ -216,18 +200,12 @@ nav li a {
 	padding: 0 20px;
 }
 
-
-
-/*..........................................................................................................................................................*/
-
-/* FILTER */
-
+/* Styles de filtre */
 .filters {
 	display: flex;
 	justify-content: center;
-	margin: 40px 0;
+	margin: 50px 0;
 }
-
 
 .tousBtn,
 .btn {
@@ -248,7 +226,7 @@ nav li a {
 	background-color: #1D6154;
 }
 
-
+/* Styles de la galerie */
 .gallery {
 	width: 100%;
 	display: grid;
@@ -259,24 +237,26 @@ nav li a {
 
 .gallery img {
 	width: 100%;
-
 }
 
 
+figcaption{ 
+	margin: 5px;
+	color: #3D3D3D;
+}
 
-/* ADMIN MODE  */
 
+/* Styles du mode administrateur */
 .admin__rod {
-	position: fixed;
+	position: absolute;
+	left: 0;
 	right: 0;
 	top: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
 	height: 40px;
 	background-color: black;
-	margin-bottom: 1000px;
 }
 
 .admin__modifier {
@@ -288,7 +268,7 @@ nav li a {
 .admin__modifier a {
 	text-decoration: none;
 	color: black;
-	font-family: 'work sans';
+	font-family: 'Work Sans', sans-serif;
 	font-weight: 400;
 }
 
@@ -301,14 +281,10 @@ nav li a {
 	justify-content: center;
 	align-items: center;
 	gap: 35px;
-	margin: 100px 0 50px 0;
+	margin: 100px 0 80px 0;
 }
 
-
-
-
-/* LOGIN*/
-
+/* Styles de connexion */
 .login {
 	display: flex;
 	flex-direction: column;
@@ -320,7 +296,6 @@ nav li a {
 .login a {
 	text-decoration: underline;
 	color: #3d3d3d;
-
 }
 
 .login__form {
@@ -339,7 +314,7 @@ nav li a {
 
 .login__form label {
 	margin: 3em 0 1em 0;
-	font-family: 'work sans';
+	font-family: 'Work Sans', sans-serif;
 	font-size: 15px;
 	color: #3d3d3d;
 }
@@ -349,7 +324,7 @@ nav li a {
 }
 
 .login input[type="submit"] {
-	font-family: 'Syne';
+	font-family: 'Syne', sans-serif;
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
@@ -362,14 +337,10 @@ nav li a {
 
 #error-message {
 	color: red;
-
+	margin-top: 20px;
 }
 
-
-
-/*...........................................................................................................................*/
-/*......................MODALE MODE edit 1*/
-
+/* Styles de la modale */
 .modal {
 	position: fixed;
 	top: 0;
@@ -390,7 +361,6 @@ nav li a {
 	padding: 30px 50px;
 	background-color: white;
 	border-radius: 10px;
-
 }
 
 .modal-logo {
@@ -415,7 +385,7 @@ nav li a {
 	display: flex;
 	justify-content: center;
 	margin: 20px 0 50px 0;
-	font-family: 'Work Sans';
+	font-family: 'Work Sans', sans-serif;
 	font-weight: 400;
 	font-size: 26px;
 	color: black;
@@ -425,7 +395,7 @@ nav li a {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-family: "Syne";
+	font-family: "Syne", sans-serif;
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
@@ -482,8 +452,7 @@ figure .fa-trash {
 	cursor: pointer;
 }
 
-/*....................Modale2 form........................................................*/
-
+/* Styles du formulaire de modale */
 .modal-form {
 	display: flex;
 	flex-direction: column;
@@ -500,18 +469,17 @@ figure .fa-trash {
 	width: 500px;
 	height: 180px;
 }
- 
-#imageLabel {
-    display: block;
-    line-height: 36px;
-}
 
+#imageLabel {
+	display: block;
+	line-height: 36px;
+}
 
 .js-image {
 	display: none;
 }
 
-/* Style for the image preview */
+/* Style pour l'aperçu de l'image */
 .js-image-preview {
 	top: 0;
 	left: 0;
@@ -604,13 +572,10 @@ figure .fa-trash {
 	border-radius: 60px;
 }
 
-
-
 .error-message {
 	color: black;
 	font-weight: 600;
 	margin-top: 30px;
-	align-items: left;
 }
 
 .finalbar {
@@ -622,14 +587,14 @@ figure .fa-trash {
 	margin: 40px auto;
 }
 
-
 #introduction {
 	display: flex;
 	align-items: center;
+	margin: 150px 0;
 }
 
 #introduction figure {
-	flex: 1
+	flex: 1;
 }
 
 #introduction img {
@@ -639,7 +604,9 @@ figure .fa-trash {
 }
 
 #introduction article {
-	flex: 1
+	flex: 1;
+	text-align: left;
+	color: #3d3d3d;
 }
 
 #introduction h2 {
@@ -647,23 +614,26 @@ figure .fa-trash {
 }
 
 #introduction p {
-	margin-bottom: 0.5em;
+	margin-bottom: 20px;
+	width: 404px;
+}
+
+#portfolio {
+	margin-bottom: 100px;
 }
 
 #portfolio h2 {
 	text-align: center;
-
 }
-
 
 #contact {
 	width: 50%;
 	margin: auto;
+	margin-top: 40px;
 }
 
 #contact>* {
 	text-align: center;
-
 }
 
 #contact h2 {
@@ -694,7 +664,7 @@ figure .fa-trash {
 }
 
 #contact input[type="submit"] {
-	font-family: 'Syne';
+	font-family: 'Syne', sans-serif;
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
@@ -712,7 +682,6 @@ footer {
 	background-color: white;
 }
 
-
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
@@ -720,5 +689,4 @@ footer nav ul {
 	background-color: white;
 	height: 60px;
 	margin-right: 60px;
-
 }
