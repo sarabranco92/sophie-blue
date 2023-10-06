@@ -1,4 +1,4 @@
 {
-    "liveServer.settings.onSave": false
+    "liveServer.settings.ignoreFiles":["**"]
     
 }
