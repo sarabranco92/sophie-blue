@@ -1,5 +1,6 @@
+// Attend que le document HTML soit complètement chargé
 document.addEventListener("DOMContentLoaded", () => {
-    let data; // Déclarez une variable pour stocker les données
+    let data; // Déclarez une variable pour stocker les données des projets
 
     // Récupérez les données depuis le backend
     fetch("http://localhost:5678/api/works")
@@ -16,12 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const tousBtn = document.querySelector(".tousBtn");
             tousBtn.addEventListener("click", () => generationProjets(data, null)); // Utilisez une fonction fléchée ici
 
-            //  buttons 
+            // Obtenez les catégories depuis le backend
             fetch("http://localhost:5678/api/categories")
                 .then((resCategories) => {
                     return resCategories.json();
                 })
                 .then((dataCategories) => {
+                    // Générez les boutons de filtre pour chaque catégorie
                     dataCategories.forEach((category) => {
                         const container = document.querySelector('.filters'); // Vous avez manqué un point ici
                         let btn = document.createElement("button");
@@ -34,8 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         let selectedButton = null; // Variable pour stocker le bouton sélectionné
 
+                        // Ajoutez des gestionnaires d'événements pour les boutons de filtre
                         buttons.forEach((button) => {
-                            button.addEventListener('click', () => {   // Ajoutez click à chaque bouton
+                            button.addEventListener('click', () => {   // Ajoutez "click" à chaque bouton
                                 if (selectedButton !== null) {
                                     selectedButton.classList.remove('active'); // Désélectionnez le bouton précédemment sélectionné
                                 }
@@ -47,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         });
                     });
 
-                    tousBtn.click(); // selected by default quand la page loads
+                    tousBtn.click(); // Sélectionnez par défaut lorsque la page se charge
                 });
         });
 
@@ -73,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
         } else {
-            // Affichez les projets filtrés
+            // Affichez les projets filtrés par catégorie
             const filteredData = data.filter((work) => work.categoryId === id);
             filteredData.forEach((work) => {
                 const figure = document.createElement("figure");
@@ -91,15 +94,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-
     /* ................................Admin...............................*/
 
+    // Fonction pour gérer l'interface d'administration
     function adminPanel() {
         const alreadyLogged = document.querySelector(".already-logged");
         const token = sessionStorage.getItem("Token");
 
         if (token) {
-
+            // L'utilisateur est connecté en tant qu'administrateur
             console.log("Token exists in sessionStorage:", token);
             console.log("User is logged in.");
 
@@ -113,8 +116,9 @@ document.addEventListener("DOMContentLoaded", () => {
             alreadyLogged.innerHTML = "logout";
 
             alreadyLogged.addEventListener("click", () => {
+                // Déconnexion de l'utilisateur
                 sessionStorage.removeItem("Token");
-                // Redirect the user back to index.html
+                // Redirection de l'utilisateur vers index.html
                 window.location.href = "index.html";
             });
 
@@ -123,16 +127,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 button.style.display = "none";
             });
         } else {
-            // Token is not found in sessionStorage
+            // Le jeton n'est pas trouvé dans sessionStorage
             console.log("Token is not found in sessionStorage.");
             console.log("User is not logged in.");
         }
     }
 
-    adminPanel();
+    adminPanel(); // Appelez la fonction d'administration pour gérer l'interface
 
     /* ................................MODAL...............................*/
 
+    // Fonction pour ouvrir la modal
     const openModal = function (e) {
         e.preventDefault();
         const target = document.querySelector(e.target.getAttribute('href'));
@@ -155,12 +160,13 @@ document.addEventListener("DOMContentLoaded", () => {
             ModalProjets(data, null); // Appelez la fonction pour générer les projets initiaux
         });
 
+    // Fonction pour générer les projets dans la modal
     function ModalProjets(data, id) {
         const galleryModal = document.querySelector(".admin-projets");
         galleryModal.innerHTML = ""; // Effacez la galerie existante
 
         if (id === null) {
-            // Affichez tous les projets
+            // Affichez tous les projets dans la modal
             data.forEach((work) => {
                 const figure = document.createElement("figure");
                 const img = document.createElement("img");
@@ -173,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 deleteIcon.dataset.workId = work.id;
 
                 deleteIcon.addEventListener("click", (event) => {
-                    event.preventDefault(); // Prevent the default behavior
+                    event.preventDefault(); // Empêchez le comportement par défaut
                     const workId = event.currentTarget.dataset.workId;
                     const token = sessionStorage.getItem("Token");
 
@@ -185,21 +191,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     })
                         .then((response) => {
                             if (response.status === 204) {
-                                // Successfully deleted, so remove the deleted project from the modal
+                                // Supprimé avec succès, donc retirez le projet supprimé de la modal
                                 const deletedProject = galleryModal.querySelector(`[data-work-id="${workId}"]`);
                                 if (deletedProject) {
                                     deletedProject.remove();
                                 }
 
-                                // Fetch the updated list of projects and refresh the modal
+                                // Obtenez la liste mise à jour des projets et rafraîchissez la modal
                                 fetch("http://localhost:5678/api/works")
                                     .then((response) => response.json())
                                     .then((responseData) => {
                                         data = responseData;
-                                        ModalProjets(data, null); // Refresh the modal with the same filter (or null)
+                                        ModalProjets(data, null); // Rafraîchissez la modal avec le même filtre (ou null)
                                     })
                                     .catch((error) => {
-                                        console.error("Error fetching updated data:", error);
+                                        console.error("Erreur lors de la récupération des données mises à jour:", error);
                                     });
                             } else if (response.status === 401) {
                                 console.error("Vous n'êtes pas autorisé.");
@@ -218,6 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ................................MODAL 2...............................*/
 
+    // Fonction pour ouvrir la deuxième modal
     const openModal2 = function (e) {
         e.preventDefault();
         const target = document.querySelector(e.target.getAttribute('href'));
@@ -234,163 +241,179 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnAjouterProjet = document.querySelector(".add-work");
     btnAjouterProjet.addEventListener("click", ajouterProjet);
 
-    // Add an event listener to the "ajouter photo" button to clear the success message
+    // Ajoutez un gestionnaire d'événements au bouton "ajouter photo" pour effacer le message de succès
     document.getElementById("imageLabel").addEventListener("click", () => {
         document.querySelector(".error-message").textContent = "";
     });
 
-        const modalReturnButton = document.querySelector("#modal2 .modal-return");
-        modalReturnButton.addEventListener("click", (e) => {
-            e.preventDefault();
-            const modal2 = document.querySelector("#modal2");
-            const modal1 = document.querySelector("#modal1");
+    const modalReturnButton = document.querySelector("#modal2 .modal-return");
+    modalReturnButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        const modal2 = document.querySelector("#modal2");
+        const modal1 = document.querySelector("#modal1");
 
-            // Hide modal2
-            modal2.style.display = "none";
-            modal2.setAttribute("aria-hidden", "true");
+        // Masquez la modal2
+        modal2.style.display = "none";
+        modal2.setAttribute("aria-hidden", "true");
 
-            // Show modal1
-            modal1.style.display = null;
-            modal1.removeAttribute("aria-hidden");
-            modal1.removeAttribute("aria-modal", "true");
+        // Affichez la modal1
+        modal1.style.display = null;
+        modal1.removeAttribute("aria-hidden");
+        modal1.removeAttribute("aria-modal", "true");
 
-            // Refresh modal1
-            fetch("http://localhost:5678/api/works")
-                .then((response) => response.json())
-                .then((responseData) => {
-                    data = responseData;
-                    ModalProjets(data, null);
-                })
-                .catch((error) => {
-                    console.error("Error fetching data:", error);
-                });
-        });
-
-        const imagePreview = document.querySelector('.js-image-preview');
-        const fileInput = document.querySelector('.js-image');
-        const imageIcon = document.querySelector('#imageIcon');
-        const imageLabel = document.querySelector('#imageLabel');
-        const imageContent = document.querySelector('.form-photo');
-
-        imagePreview.addEventListener('click', () => fileInput.click());
-
-        fileInput.addEventListener('change', function (e) {
-            const file = e.target.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function (e) {
-                    imagePreview.src = e.target.result;
-                    imagePreview.style.display = 'block';
-                    imageIcon.style.display = 'none';
-                    imageLabel.style.display = 'none';
-                    imageContent.classList.add('image-selected');
-                };
-
-                reader.readAsDataURL(file);
-                imageLabel.style.display = 'none';
-            } else {
-                imagePreview.style.display = 'none';
-                imageIcon.style.display = 'block';
-                imageLabel.style.display = 'block';
-                imageContent.classList.remove('image-selected');
-            }
-        });
-
-        const form = document.getElementById("modal-form");
-        const submitButton = document.getElementById("submit");
-
-        // Function to check if all required fields are filled
-        function isFormValid() {
-            const requiredFields = form.querySelectorAll("[required]");
-            return [...requiredFields].every(field => field.value.trim() !== "");
-        }
-
-        // Function to update button color based on form validity
-        function updateButtonColor() {
-            submitButton.style.backgroundColor = isFormValid() ? "#1D6154" : "#A7A7A7";
-        }
-
-        // Listen for input events on the form fields
-        form.addEventListener("input", updateButtonColor);
-
-        // Initial button color check
-        updateButtonColor();
-
-        function ajouterProjet(event) {
-            event.preventDefault();
-
-            const title = document.querySelector(".js-title").value;
-            const categoryId = document.querySelector(".js-categoryId").value;
-            const image = document.querySelector(".js-image").files[0];
-            const errorMessage = document.querySelector(".error-message");
-
-            if (!title || !categoryId || !image) {
-                errorMessage.textContent = "Veuillez remplir tous les champs";
-                return;
-            }
-
-            if (categoryId !== "1" && categoryId !== "2" && categoryId !== "3") {
-                errorMessage.textContent = "Choisissez une catégorie valide";
-                return;
-            }
-
-            errorMessage.textContent = "";
-
-            const formData = new FormData();
-            formData.append("title", title);
-            formData.append("category", categoryId);
-            formData.append("image", image);
-
-            const token = sessionStorage.getItem("Token");
-
-            fetch("http://localhost:5678/api/works", {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                body: formData,
+        // Rafraîchissez la modal1
+        fetch("http://localhost:5678/api/works")
+            .then((response) => response.json())
+            .then((responseData) => {
+                data = responseData;
+                ModalProjets(data, null);
             })
-                .then((response) => {
-                    if (response.status === 201) {
-                        errorMessage.textContent = "Projet ajouté avec succès";
+            .catch((error) => {
+                console.error("Erreur lors de la récupération des données :", error);
+            });
+    });
 
-                        // Refresh modal1 with the new image
-                        fetch("http://localhost:5678/api/works")
-                            .then((response) => response.json())
-                            .then((responseData) => {
-                                data = responseData;
-                                ModalProjets(data, null);
-                            })
-                            .catch((error) => {
-                                console.error("Error fetching data:", error);
-                            });
+    const imagePreview = document.querySelector('.js-image-preview');
+    const fileInput = document.querySelector('.js-image');
+    const imageIcon = document.querySelector('#imageIcon');
+    const imageLabel = document.querySelector('#imageLabel');
+    const imageContent = document.querySelector('.form-photo');
 
-                        // Reset the form fields
-                        document.querySelector(".js-title").value = "";
-                        document.querySelector(".js-categoryId").value = "";
-                        document.querySelector(".js-image").value = null;
-                        document.querySelector("#imagePreview").src = "";
-                        document.querySelector("#imagePreview").style.display = "none";
-                        document.querySelector("#imageIcon").style.display = "block";
-                        document.querySelector("#imageLabel").textContent = "+ Ajouter photo";
-                        document.querySelector("#imageLabel").style.display = 'block';
+    imagePreview.addEventListener('click', () => fileInput.click());
 
+    fileInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
 
+        if (file) {
+            const reader = new FileReader();
 
-                        updateButtonColor();
-                    } else if (response.status === 400) {
-                        errorMessage.textContent = "Veuillez remplir tous les champs";
-                    } else if (response.status === 500) {
-                        errorMessage.textContent = "Erreur de serveur";
-                    } else if (response.status === 401) {
-                        errorMessage.textContent = "Vous n'êtes pas autorisé à ajouter un projet";
-                        window.location.href = "login.html";
-                    }
-                })
-                .catch((error) => {
-                    console.error("Erreur lors de l'ajout du projet:", error);
-                });
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                imageIcon.style.display = 'none';
+                imageLabel.style.display = 'none';
+                imageContent.classList.add('image-selected');
+            };
+
+            reader.readAsDataURL(file);
+            imageLabel.style.display = 'none';
+        } else {
+            imagePreview.style.display = 'none';
+            imageIcon.style.display = 'block';
+            imageLabel.style.display = 'block';
+            imageContent.classList.remove('image-selected');
         }
     });
+
+    const form = document.getElementById("modal-form");
+    const submitButton = document.getElementById("submit");
+
+    // Fonction pour vérifier si tous les champs obligatoires sont remplis
+    function isFormValid() {
+        const requiredFields = form.querySelectorAll("[required]");
+        return [...requiredFields].every(field => field.value.trim() !== "");
+    }
+
+    // Fonction pour mettre à jour la couleur du bouton en fonction de la validité du formulaire
+    function updateButtonColor() {
+        submitButton.style.backgroundColor = isFormValid() ? "#1D6154" : "#A7A7A7";
+    }
+
+    // Écoutez les événements d'entrée sur les champs du formulaire
+    form.addEventListener("input", updateButtonColor);
+
+    // Vérifiez la couleur initiale du bouton
+    updateButtonColor();
+
+    // Fonction pour ajouter un nouveau projet
+    function ajouterProjet(event) {
+        event.preventDefault();
+
+        const title = document.querySelector(".js-title").value;
+        const categoryId = document.querySelector(".js-categoryId").value;
+        const image = document.querySelector(".js-image").files[0];
+        const errorMessage = document.querySelector(".error-message");
+
+        if (!title || !categoryId || !image) {
+            errorMessage.textContent = "Veuillez remplir tous les champs";
+            return;
+        }
+
+        if (categoryId !== "1" && categoryId !== "2" && categoryId !== "3") {
+            errorMessage.textContent = "Choisissez une catégorie valide";
+            return;
+        }
+
+        errorMessage.textContent = "";
+
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("category", categoryId);
+        formData.append("image", image);
+
+        const token = sessionStorage.getItem("Token");
+
+        fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+        })
+            .then((response) => {
+                if (response.status === 201) {
+                    errorMessage.textContent = "Projet ajouté avec succès";
+
+                    // Rafraîchissez la modal1 avec la nouvelle image
+                    fetch("http://localhost:5678/api/works")
+                        .then((response) => response.json())
+                        .then((responseData) => {
+                            data = responseData;
+                            ModalProjets(data, null);
+                        })
+                        .catch((error) => {
+                            console.error("Erreur lors de la récupération des données :", error);
+                        });
+
+                    // Réinitialisez les champs du formulaire
+                    document.querySelector(".js-title").value = "";
+                    document.querySelector(".js-categoryId").value = "";
+                    document.querySelector(".js-image").value = null;
+                    document.querySelector("#imagePreview").src = "";
+                    document.querySelector("#imagePreview").style.display = "none";
+                    document.querySelector("#imageIcon").style.display = "block";
+                    document.querySelector("#imageLabel").textContent = "+ Ajouter photo";
+                    document.querySelector("#imageLabel").style.display = 'block';
+
+                    // Mettez à jour la couleur du bouton
+                    updateButtonColor();
+                } else if (response.status === 400) {
+                    errorMessage.textContent = "Veuillez remplir tous les champs";
+                } else if (response.status === 500) {
+                    errorMessage.textContent = "Erreur de serveur";
+                } else if (response.status === 401) {
+                    errorMessage.textContent = "Vous n'êtes pas autorisé à ajouter un projet";
+                    window.location.href = "login.html";
+                }
+            })
+            .catch((error) => {
+                console.error("Erreur lors de l'ajout du projet :", error);
+            });
+    }
+
+    
+    document.getElementById('modal1').addEventListener('click', (e) => {
+        if (e.target.id === 'modal1') {
+            e.currentTarget.style.display = 'none';
+            e.currentTarget.setAttribute('aria-hidden', 'true');
+        }
+    });
+
+// Add event listener to close modal2 when clicking outside
+document.getElementById('modal2').addEventListener('click', (e) => {
+    if (e.target.id === 'modal1' || e.target.id === 'modal2') {
+        e.target.style.display = 'none';
+        e.target.setAttribute('aria-hidden', 'true');
+    }
+});
+});

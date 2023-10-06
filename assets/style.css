@@ -341,6 +341,21 @@ figcaption{
 }
 
 /* Styles de la modale */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent */
+    z-index: 1000; /* Assurez-vous que l'overlay est au-dessus du reste du contenu */
+    display: none; /* Initialement caché */
+}
+
+
+
+
 .modal {
 	position: fixed;
 	top: 0;
@@ -351,6 +366,11 @@ figcaption{
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+.modal[aria-hidden="false"] {  /* Style de la modal lorsque elle est ouverte */
+    display: block;
 }
 
 .modal-wrapper {
