@@ -259,6 +259,10 @@ figcaption{
 	background-color: black;
 }
 
+.admin__rods{
+	margin-bottom: 80px;
+}
+
 .admin__modifier {
 	display: flex;
 	column-gap: 5px;
