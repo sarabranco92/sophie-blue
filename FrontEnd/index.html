@@ -17,13 +17,15 @@
 
 <body>
 <!-- MODULE ADMIN -->
+<div class="admin__rods">
 <aside class="admin__rod admin__modifier" aria-hidden="true" style="display: none;">
+	
 	<div class="admin__modifier">
 		<i class="fa-solid fa-pen-to-square"></i>
 		<p>Mode édition</p>
 	</div>
 </aside>
-
+</div>
 
 <!-- MODALE -->
 <aside id="modal1" class="modal" aria-hidden="true" style="display: none;">
@@ -33,7 +35,7 @@
 		</a>
 		<h2>Galerie photo</h2>
 		<div class="admin-projets" id="modalProjects">
-			<!-- Project items will be dynamically generated here -->
+			
 		</div>
 		<a href="#modal2" class="ajouter-projet">Ajouter un projet</a>
 	</div>
@@ -59,7 +61,6 @@
 				<i id="imageIcon" class="fa-regular fa-image"></i>
 				<label for="photo" id="imageLabel">+ Ajouter photo</label>
 				<input type="file" name="photo" id="photo" class="js-image" required>
-				<!-- Coloque o <img> dentro do mesmo <div> -->
 				<img id="imagePreview" src="" alt ="" class="js-image-preview">
 			</div>
 			
