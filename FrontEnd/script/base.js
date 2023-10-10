@@ -43,7 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
           container.appendChild(btn);
 
           const buttons = document.querySelectorAll('.btn, .tousBtn');
+       
 
+          const tousBtn = document.querySelector('.tousBtn');
           if (tousBtn) {
             tousBtn.click(); // Sélectionne par défaut lorsque la page se charge
           }
