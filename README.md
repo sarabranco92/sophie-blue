@@ -49,7 +49,12 @@ Démarrez le serveur back-end en utilisant la commande :
 - Effectuez vos modifications.
 - Soumettez une demande de pull vers la branche principale de ce repository.
   
-![Login](https://github.com/sarabranco92/sophie-blue/assets/132900005/33340dfd-68ea-4865-a823-1e210e701eec)
-![Homepage_edit_2](https://github.com/sarabranco92/sophie-blue/assets/132900005/e2fc454a-cbf8-47ee-881b-d8246f7e5bf3)
-![Homepage_edit_1](https://github.com/sarabranco92/sophie-blue/assets/132900005/34619a95-3936-4f23-8616-952cc7c6303a)
-![Homepage](https://github.com/sarabranco92/sophie-blue/assets/132900005/fffdcab4-6f57-44d0-a846-13869a9b6875)
+
+![1](https://github.com/sarabranco92/sophie-blue/assets/132900005/04e9374f-2340-4188-a123-ae9f0b21a8eb)
+
+![2](https://github.com/sarabranco92/sophie-blue/assets/132900005/b118efcb-df70-4dec-983e-babdde657948)
+
+![3](https://github.com/sarabranco92/sophie-blue/assets/132900005/0de096b6-47ae-4af8-9ebc-4a411a36c8af)
+
+![4](https://github.com/sarabranco92/sophie-blue/assets/132900005/4ecf0455-b625-4056-8c15-4076efe1e8b5)
+
