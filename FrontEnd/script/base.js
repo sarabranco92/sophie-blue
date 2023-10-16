@@ -29,40 +29,52 @@ document.addEventListener("DOMContentLoaded", () => {
   // Fonction pour récupérer les catégories de projets
   function fetchCategories() {
     fetch("http://localhost:5678/api/categories")
-      .then((resCategories) => {
-        return resCategories.json();
-      })
+      .then((resCategories) => resCategories.json())
       .then((dataCategories) => {
-        // Génère des boutons de filtre pour chaque catégorie
+        const container = document.querySelector('.filters');
+        const selectElement = document.getElementById("categorie");
+
+        // Générer des boutons de filtre pour chaque catégorie
         dataCategories.forEach((category) => {
-          const container = document.querySelector('.filters');
-          let btn = document.createElement("button");
+          const btn = document.createElement("button");
           btn.classList.add("btn");
           btn.textContent = category.name;
-          btn.addEventListener("click", () => generationProjets(data, category.id)); // Utilise une fonction fléchée ici
+
+          // Ajouter un écouteur d'événements au bouton pour le filtrage
+          btn.addEventListener("click", () => {
+            generationProjets(data, category.id);
+          });
+
           container.appendChild(btn);
 
-          const buttons = document.querySelectorAll('.btn, .tousBtn');
-       
+          // Générer des éléments <option> pour le <select> en fonction des catégories (Modal form)  
+          const option = document.createElement("option");
+          option.value = category.id;
+          option.textContent = category.name;
+          selectElement.appendChild(option);
+        });
 
-          const tousBtn = document.querySelector('.tousBtn');
-          if (tousBtn) {
-            tousBtn.click(); // Sélectionne par défaut lorsque la page se charge
-          }
+        const buttons = document.querySelectorAll('.btn, .tousBtn');
 
-          let selectedButton = null; // Variable pour stocker le bouton sélectionné
+        let selectedButton = null; // Variable pour stocker le bouton sélectionné
 
-          // Ajoute des gestionnaires d'événements pour les boutons de filtre
-          buttons.forEach((button) => {
-            button.addEventListener('click', () => {
-              if (selectedButton !== null) {
-                selectedButton.classList.remove('active');
-              }
-              button.classList.add('active');
-              selectedButton = button;
-            });
+        // Ajouter des gestionnaires d'événements pour les boutons de filtre
+        buttons.forEach((button) => {
+          button.addEventListener('click', () => {
+            if (selectedButton !== null) {
+              selectedButton.classList.remove('active');
+            }
+            button.classList.add('active');
+            selectedButton = button;
           });
         });
+
+        const tousBtn = document.querySelector('.tousBtn');
+        if (tousBtn) {
+          tousBtn.click(); // Sélectionner par défaut lorsque la page se charge
+        }
+
+        // Après avoir généré les boutons et les options, récupérez les projets
         fetchProjects();
       });
   }
