@@ -31,3 +31,7 @@ Le projet se concentre sur l'utilisation de technologies web modernes pour crée
 - **Gestion des événements utilisateurs :** Compétence à créer des interactions dynamiques avec JavaScript.
 - **Manipulation du DOM :** Aptitude à manipuler et à modifier les éléments du DOM pour une expérience utilisateur améliorée.
 - **Récupération de données :** Capacité à récupérer des données utilisateurs via des formulaires et à les traiter.
+
+## Setup and maintenance guide
+
+See the [project guide](docs/PROJECT_GUIDE.md) for repository-specific setup, commands, configuration, implementation limits and verification steps.
